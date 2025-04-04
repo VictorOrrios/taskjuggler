@@ -397,12 +397,15 @@ taskreport development "" {
 }
 
 taskreport generalSystemDesignReport "" {  
-  scenarios actual  
-  headline "General System Design - Resource Allocation Report"  
-  columns name, start, end, effort { title "Work" },  
-          duration, chart { ${TaskTip} scale day width 500 }  
-  timeformat "%Y-%m-%d"  
-  hideresource ~(isleaf() & isleaf_())  
+  scenarios actual
+  headline "General System Design - Resource Allocation Report"
+  columns name, start, end, effort, cost,
+          revenue, chart { ${TaskTip} }
+  timeformat "%a %Y-%m-%d"
+  loadunit days
+  hideresource @all
+  balance cost rev
+  caption 'All effort values are in man days.'
   hidetask (actual.name != "General System Design")
 }  
 

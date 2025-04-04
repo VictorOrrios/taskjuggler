@@ -304,7 +304,7 @@ textreport frame "" {
     center '<[report id="development"]>'
   }
 
-  textreport generalSystemDesign "General System Design" {
+  textreport generalSystemDesignReport "General System Design" {
     formats html
     center '<[report id="generalSystemDesignReport"]>'
   }
@@ -402,7 +402,7 @@ taskreport generalSystemDesignReport "" {
           duration, chart { ${TaskTip} scale day width 500 }
   timeformat "%Y-%m-%d"
   hideresource ~(isleaf() & isleaf_())
-  sortresources WBGame.tgdesign
+  sortresources name.up
 }
 
 # A list of all employees with their contact details.

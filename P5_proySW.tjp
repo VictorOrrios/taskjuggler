@@ -403,7 +403,7 @@ taskreport generalSystemDesignReport "" {
           duration, chart { ${TaskTip} scale day width 500 }  
   timeformat "%Y-%m-%d"  
   hideresource ~(isleaf() & isleaf_())  
-  hidetask ~(taskid != "WMGame.tgdesign")
+  hidetask ~(name != "General System Design")
 }  
 
 

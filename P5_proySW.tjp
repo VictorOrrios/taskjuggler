@@ -95,16 +95,6 @@ task WMGame "Web & Mobile Game" {
       allocate boss
       depends WMGame.deliveries.start 
 
-      taskreport generalSystemDesignReport "" {  
-      scenarios actual  
-      headline "General System Design - Resource Allocation Report"  
-      columns name, start, end, effort { title "Work" },  
-              duration, chart { ${TaskTip} scale day width 500 }  
-      timeformat "%Y-%m-%d"  
-      hideresource ~(isleaf() & isleaf_())  
-      sortresources name.up  
-    }  
-
   }
 
   task tback "Back End" {
@@ -405,6 +395,16 @@ taskreport development "" {
   hideresource ~(isleaf() & isleaf_())
   sortresources name.up
 }
+
+taskreport generalSystemDesignReport "" {  
+  scenarios actual  
+  headline "General System Design - Resource Allocation Report"  
+  columns name, start, end, effort { title "Work" },  
+          duration, chart { ${TaskTip} scale day width 500 }  
+  timeformat "%Y-%m-%d"  
+  hideresource ~(isleaf() & isleaf_())  
+  sortresources name.up  
+}  
 
 
 # A list of all employees with their contact details.

@@ -395,6 +395,16 @@ taskreport development "" {
   sortresources name.up
 }
 
+taskreport generalSystemDesignReport "" {
+  scenarios actual
+  headline "Development - Resource Allocation Report"
+  columns bsi { title 'WBS' }, name, start, end, effort { title "Work" },
+          duration, chart { ${TaskTip} scale day width 500 }
+  timeformat "%Y-%m-%d"
+  hideresource ~(isleaf() & isleaf_())
+  sortstart up  
+  filter taskid "WBGame.tgdesign" 
+}
 
 # A list of all employees with their contact details.
 resourcereport contactList "" {

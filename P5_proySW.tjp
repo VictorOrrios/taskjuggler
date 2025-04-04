@@ -403,6 +403,7 @@ taskreport generalSystemDesignReport "" {
   timeformat "%Y-%m-%d"
   hideresource ~(isleaf() & isleaf_())
   sortresources name.up
+  filter taskid "WBGame.tgdesign"  
 }
 
 # A list of all employees with their contact details.

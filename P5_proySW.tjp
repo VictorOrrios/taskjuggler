@@ -305,9 +305,9 @@ textreport frame "" {
     center '<[report id="development"]>'
   }
 
-  textreport generalSystemDesignReport "General System Design" {
+  textreport initalReport "Initial project plan" {
     formats html
-    center '<[report id="generalSystemDesignReport"]>'
+    center '<[report id="initalReport"]>'
   }
 
   textreport "ContactList" {
@@ -396,19 +396,20 @@ taskreport development "" {
   sortresources name.up
 }
 
-taskreport generalSystemDesignReport "" {  
+taskreport initalReport "" {
   scenarios actual
-  headline "General System Design - Resource Allocation Report"
-  columns name, start, end, effort, cost,
+  headline "Initial Project Plan"
+  columns bsi { title 'WBS' },
+          name, start, end, effort, cost,
           revenue, chart { ${TaskTip} }
+  # For this report we like to have the abbreviated weekday in front
+  # of the date. %a is the tag for this.
   timeformat "%a %Y-%m-%d"
   loadunit days
   hideresource @all
   balance cost rev
   caption 'All effort values are in man days.'
-  hidetask (actual.name != "General System Design")
-}  
-
+}
 
 # A list of all employees with their contact details.
 resourcereport contactList "" {

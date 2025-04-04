@@ -395,14 +395,6 @@ taskreport development "" {
   sortresources name.up
 }
 
-taskreport generalSystemDesignReport "Task Report of General System Design" {
-  scenarios actual
-  headline "Task Report - General System Design"
-  columns id, name, start, end, effort, duration, complete, status, chart
-  timeformat "%Y-%m-%d"
-  sortstart up
-  filter taskid "GeneralSystemDesign"
-}
 
 # A list of all employees with their contact details.
 resourcereport contactList "" {

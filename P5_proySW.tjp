@@ -397,7 +397,7 @@ taskreport development "" {
 }
 
 taskreport initalReport "" {
-  scenarios actual
+  scenarios Initial
   headline "Initial Project Plan"
   columns bsi { title 'WBS' },
           name, start, end, effort, cost,

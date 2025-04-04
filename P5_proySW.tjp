@@ -304,6 +304,11 @@ textreport frame "" {
     center '<[report id="development"]>'
   }
 
+  textreport generalSystemDesign "General System Design" {
+    formats html
+    center '<[report id="generalSystemDesignReport"]>'
+  }
+
   textreport "ContactList" {
     formats html
     title "Contact List"
@@ -390,6 +395,15 @@ taskreport development "" {
   sortresources name.up
 }
 
+taskreport generalSystemDesignReport "Task Report of General System Design" {
+  scenarios actual
+  headline "Task Report - General System Design"
+  columns id, name, start, end, effort, duration, complete, status, chart
+  timeformat "%Y-%m-%d"
+  sortstart up
+  filter taskid "GeneralSystemDesign"
+}
+
 # A list of all employees with their contact details.
 resourcereport contactList "" {
   scenarios actual
@@ -413,14 +427,4 @@ resourcereport resourceGraph "" {
   # We only like to show leaf tasks for leaf resources.
   hidetask ~(isleaf() & isleaf_())
   sorttasks plan.start.up
-}
-
-resourcereport initialPlaning "" {
-  scenarios actual
-  headline "Initial plannig Resource Allocation Graph"
-  columns no, name, effort, rate, weekly { ${TaskTip} }
-  loadunit shortauto
-  # We only like to show leaf tasks for leaf resources.
-  hidetask ~(isleaf() & isleaf_())
-  sorttasks WMGame.tgdesign
 }

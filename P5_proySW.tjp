@@ -19,7 +19,7 @@ project pSix "Web Game"  2024-12-15 +5m {
   # the project reports. If not specified, the current day will be
   # used, but this will likely be outside of the project range, so it
   # can't be seen in the reports.
-  now 2025-02-25-13:00
+  now 2025-04-04-16:00
   # The currency for all money values is the US Dollar.
   currency "EUR"
 
@@ -47,6 +47,7 @@ account cost "Project Cost" {
   account wFront "Web Front-End"
   account mFront "Mobile Front-end"
   account back "Back-End"
+  account deploy "Cloud deployment"
 }
 account rev "Payments"
 # The Profit&Loss analysis should be rev - cost accounts.
@@ -120,6 +121,33 @@ task WMGame "Web & Mobile Game" {
     }
   }
 
+  task twebM "Mobile Front End" {
+    purge chargeset
+    chargeset mFront
+    responsible dev2
+    depends WMGame.tback.tBEd
+    task tGUId "Mobile GUI Design" {
+      effort 9d
+      actual:effort 15d
+      allocate dev2
+      journalentry 2025-01-15 "Problems with enviroment instalation" {
+        author dev2
+        alert yellow
+        summary "The tool for instaling the enviroment fails on latest Arch Linux."
+      }
+    }
+    task tFEc "Mobile Front End Construction" {
+      effort 15d
+      allocate dev2, dev3
+      depends WMGame.twebM.tGUId
+    }
+    task tFEt "Mobile Front End Test" {
+      effort 6d
+      allocate dev1
+      depends WMGame.twebM.tFEc
+    }    
+  }
+
   task twebF "Web Front End" {
     purge chargeset
     chargeset wFront
@@ -147,14 +175,39 @@ task WMGame "Web & Mobile Game" {
     }    
   }
 
-  task ttest "Acceptance tests" {
+  task tcloudD "Cloud deployment" {
+    purge chargeset
+    chargeset deploy
+    responsible dev1
+    depends WMGame.tback.tBEd
+    task tDesign "Choose how to do the cloud deployment" {
+      effort 2d
+      actual:effort 4d
+      allocate dev1
+    }
+    task tDeploy "Deploy backend on cloud" {
       effort 10d
-      allocate boss
-      allocate dev2
-      actual:effort 20d
-      depends WMGame.twebF
-      depends WMGame.tback
-      }
+      allocate dev1
+      depends WMGame.tcloudD.tDesign
+    }
+    task tCloudTest "Testing of cloud deployment" {
+      effort 6d
+      allocate dev1
+      depends WMGame.tcloudD.tDeploy
+    }    
+  }
+
+  task ttest "Acceptance tests" {
+    effort 10d
+    allocate boss
+    allocate dev2
+    actual:effort 20d
+    depends WMGame.twebF
+    depends WMGame.twebM
+    depends WMGame.tback
+    depends WMGame.tcloudD
+    maxend 2025-05-15
+  }
 
     
   task deliveries "Milestones" {

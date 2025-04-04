@@ -69,6 +69,10 @@ resource dev2 "Samantha Müller" {
 resource dev3 "Peter Green" {
   email "kkk@unizar.es"
 }
+resource devV "Víctor Orrios" {
+  email "840994@unizar.es"
+  limits { dailymax 4h }
+}
 
 # Now we specify the work packages. The whole project is described as
 # a task that contains subtasks. These subtasks are then broken down
@@ -106,7 +110,7 @@ task WMGame "Web & Mobile Game" {
     task tlogic "Game logic" {
       effort 12d
       actual:effort 11d
-      allocate dev1, dev2
+      allocate dev1, dev2, devV
       depends WMGame.tback.tBEd
       journalentry 2025-02-01 "Game logic completed before deadline" {
         author boss
@@ -121,7 +125,7 @@ task WMGame "Web & Mobile Game" {
     }
   }
 
-  task twebM "Mobile Front End" {
+  task tmobF "Mobile Front End" {
     purge chargeset
     chargeset mFront
     responsible dev2
@@ -139,12 +143,12 @@ task WMGame "Web & Mobile Game" {
     task tFEc "Mobile Front End Construction" {
       effort 15d
       allocate dev2, dev3
-      depends WMGame.twebM.tGUId
+      depends WMGame.tmobF.tGUId
     }
     task tFEt "Mobile Front End Test" {
       effort 6d
-      allocate dev1
-      depends WMGame.twebM.tFEc
+      allocate dev1, devV
+      depends WMGame.tmobF.tFEc
     }    
   }
 
@@ -170,7 +174,7 @@ task WMGame "Web & Mobile Game" {
     }
     task tFEt "Web Front End Test" {
       effort 6d
-      allocate dev1
+      allocate dev1, devV
       depends WMGame.twebF.tFEc
     }    
   }
@@ -189,6 +193,11 @@ task WMGame "Web & Mobile Game" {
       effort 10d
       allocate dev1
       depends WMGame.tcloudD.tDesign
+      journalentry 2025-04-04 "Payment plan cancelled" {
+        author dev3
+        alert red
+        summary "The cloud provider canceled the proyect deployment because the payments have stoped."
+      }
     }
     task tCloudTest "Testing of cloud deployment" {
       effort 6d
@@ -203,7 +212,7 @@ task WMGame "Web & Mobile Game" {
     allocate dev2
     actual:effort 20d
     depends WMGame.twebF
-    depends WMGame.twebM
+    depends WMGame.tmobF
     depends WMGame.tback
     depends WMGame.tcloudD
     maxend 2025-05-15
